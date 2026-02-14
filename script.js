@@ -721,41 +721,79 @@ const eventDetails = {
 // ========================================
 // Load Saved Results from localStorage
 // ========================================
+// ========================================
+// Load Saved Results from localStorage or Data File
+// ========================================
 function loadSavedResults() {
     try {
         const saved = localStorage.getItem('sportsDayEventDetails');
+
+        // 1. Load from localStorage (Admin/Local updates)
         if (saved) {
+            console.log("Loading data from localStorage");
             const savedData = JSON.parse(saved);
-            // Deep merge saved data into eventDetails to preserve eventType and other defaults
-            Object.keys(savedData).forEach(eventName => {
+            mergeData(savedData);
+        }
+        // 2. Load from data.js (Public/GitHub updates)
+        else if (window.sportsDayData && window.sportsDayData.events) {
+            console.log("Loading data from properties file (data.js)");
+            mergeData(window.sportsDayData.events);
+        }
+
+        // Helper to merge data
+        function mergeData(sourceData) {
+            Object.keys(sourceData).forEach(eventName => {
                 if (eventDetails[eventName]) {
-                    const savedEvent = savedData[eventName];
-                    // Merge boys data
-                    if (savedEvent.boys && eventDetails[eventName].boys) {
-                        Object.assign(eventDetails[eventName].boys, savedEvent.boys);
-                    }
-                    // Merge girls data
-                    if (savedEvent.girls && eventDetails[eventName].girls) {
-                        Object.assign(eventDetails[eventName].girls, savedEvent.girls);
-                    }
-                    // Merge event-level results (athletics events save results here)
-                    if (savedEvent.results) {
-                        eventDetails[eventName].results = savedEvent.results;
-                    }
-                    // Merge event-level fields (date, time, venue, fixtures)
-                    if (savedEvent.date) eventDetails[eventName].date = savedEvent.date;
-                    if (savedEvent.time) eventDetails[eventName].time = savedEvent.time;
-                    if (savedEvent.venue) eventDetails[eventName].venue = savedEvent.venue;
-                    if (savedEvent.fixtures) eventDetails[eventName].fixtures = savedEvent.fixtures;
+                    const savedEvent = sourceData[eventName];
+                    // Deep merge logic
+                    if (savedEvent.boys) Object.assign(eventDetails[eventName].boys, savedEvent.boys);
+                    if (savedEvent.girls) Object.assign(eventDetails[eventName].girls, savedEvent.girls);
+                    if (savedEvent.results) eventDetails[eventName].results = savedEvent.results;
+                    // Event props
+                    ['date', 'time', 'venue', 'fixtures', 'type', 'eventType'].forEach(prop => {
+                        if (savedEvent[prop] !== undefined) eventDetails[eventName][prop] = savedEvent[prop];
+                    });
                 } else {
-                    // New event added via admin
-                    eventDetails[eventName] = savedData[eventName];
+                    // New event
+                    eventDetails[eventName] = sourceData[eventName];
                 }
             });
         }
+
     } catch (e) {
         console.warn('Could not load saved event data:', e);
     }
+}
+
+// ========================================
+// Data Persistence (Download for GitHub)
+// ========================================
+function downloadDataFile() {
+    // 1. Gather current state
+    const currentEvents = eventDetails;
+    const currentGallery = getGalleryImages().filter(img => !img.isLocal); // Only keep uploaded ones
+
+    // 2. Construct Data Object
+    const dataObj = {
+        events: currentEvents,
+        gallery: currentGallery
+    };
+
+    // 3. Convert to JS String
+    const fileContent = `// ========================================\n// Sports Day Data File\n// Generated: ${new Date().toLocaleString()}\n// ========================================\n\nwindow.sportsDayData = ${JSON.stringify(dataObj, null, 4)};`;
+
+    // 4. Trigger Download
+    const blob = new Blob([fileContent], { type: 'text/javascript' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.js';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    alert('data.js downloaded!\n\nPlease replace the file in your "Kreeda-26" folder with this one, then commit and push to GitHub.');
 }
 
 // ========================================
@@ -1369,6 +1407,12 @@ function initAdminMode() {
         });
     }
 
+    // Wire up Download Button
+    const downloadBtn = document.getElementById('downloadDataBtn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadDataFile);
+    }
+
     // --- Dashboard Start ---
     function openAdminDashboard() {
         adminDashboardModal.classList.add('active');
@@ -1953,8 +1997,17 @@ document.addEventListener('DOMContentLoaded', initSportsDay);
 const defaultGalleryImages = [];
 
 function getGalleryImages() {
-    const uploaded = JSON.parse(localStorage.getItem('sportsDayGalleryImages') || '[]');
-    return [...defaultGalleryImages.map(img => ({ src: `images/${img}`, isLocal: true })), ...uploaded];
+    // 1. Try LocalStorage (Admin updates)
+    let uploaded = JSON.parse(localStorage.getItem('sportsDayGalleryImages') || '[]');
+
+    // 2. Fallback to data.js (Public updates)
+    if (uploaded.length === 0 && window.sportsDayData && window.sportsDayData.gallery) {
+        uploaded = window.sportsDayData.gallery;
+    }
+
+    // Note: We used to have default/local images here, but we removed them.
+    // If we want to restore any hardcoded local images, we'd merge them here.
+    return uploaded;
 }
 
 function initGallery() {
@@ -1978,11 +2031,17 @@ function initGallery() {
         item.className = 'gallery-item reveal';
         item.style.animationDelay = `${index * 0.05}s`;
 
+        // Determine caption: prefer tag
+        let captionText = imgObj.tag || '';
+
         item.innerHTML = `
-            <img src="${imgObj.src}" alt="Gallery Image" class="gallery-img" loading="lazy">
-            <div class="gallery-overlay">
-                <i class="fas fa-search-plus"></i>
+            <div class="gallery-img-wrapper">
+                <img src="${imgObj.src}" alt="Gallery Image" class="gallery-img" loading="lazy">
+                <div class="gallery-overlay">
+                    <i class="fas fa-search-plus"></i>
+                </div>
             </div>
+            ${captionText ? `<div class="gallery-caption-text">${captionText}</div>` : ''}
         `;
 
         item.addEventListener('click', () => openLightbox(index));
@@ -2223,10 +2282,21 @@ function renderAdminGalleryList() {
 }
 
 // Initialize Gallery when DOM is loaded
+// Initialize Gallery and Data when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    initGallery();
-    initAdminGallery(); // Add this
+    // 1. Load Data (Local or Public)
+    if (typeof loadSavedResults === 'function') loadSavedResults();
 
-    // Re-trigger scroll reveal for new gallery items
-    setTimeout(revealOnScroll, 500);
+    // 2. Render Public Components
+    if (typeof renderPublicEvents === 'function') renderPublicEvents();
+    if (typeof calculatePoints === 'function') calculatePoints();
+
+    // 3. Initialize Galleries
+    if (typeof initGallery === 'function') initGallery();
+    if (typeof initAdminGallery === 'function') initAdminGallery();
+
+    // Re-trigger scroll reveal for new items
+    setTimeout(() => {
+        if (typeof revealOnScroll === 'function') revealOnScroll();
+    }, 500);
 });

@@ -3255,13 +3255,39 @@ body {
 
 .gallery-item {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; Removed to allow caption outside */
     border-radius: 15px;
-    height: 250px;
+    /* Radius moves to wrapper */
+    /* height: 250px; Removed to adapt to content */
     flex: 0 0 300px;
     cursor: pointer;
     box-shadow: 0 5px 15px var(--shadow);
+    /* Shadow moves to wrapper? Or keep here? Keep here for card look */
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    /* Add bg for caption contrast */
+    padding-bottom: 10px;
+    /* Space for caption */
+}
+
+.gallery-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 250px;
+    width: 100%;
+}
+
+.gallery-caption-text {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0 10px;
 }
 
 .gallery-item:hover {
