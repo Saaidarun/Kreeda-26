@@ -1472,13 +1472,28 @@ function initAdminMode() {
             // Merge
             Object.assign(target, updatedInfo);
 
-            // Persist
-            localStorage.setItem('sportsDayEventDetails', JSON.stringify(eventDetails));
+            // Merge
+            Object.assign(target, updatedInfo);
 
-            // Recalculate leaderboard after saving results
-            calculatePoints();
+            // Persist to Firebase
+            if (!auth.currentUser) {
+                alert("You must be logged in to save changes!");
+                return;
+            }
 
-            alert('Event Saved Successfully!');
+            db.collection("sportsDay").doc("data").set({
+                events: eventDetails
+            }, { merge: true })
+                .then(() => {
+                    console.log("Data saved to Firestore");
+                    alert('Event Saved Successfully!');
+                    // Recalculate leaderboard
+                    calculatePoints();
+                })
+                .catch((error) => {
+                    console.error("Error saving data: ", error);
+                    alert("Error saving data: " + error.message);
+                });
         });
     }
 
@@ -1506,8 +1521,20 @@ function initAdminMode() {
                 }
 
                 // Save and Render
-                localStorage.setItem('sportsDayEventDetails', JSON.stringify(eventDetails));
-                renderEventList(currentCategory);
+                if (!auth.currentUser) {
+                    alert("You must be logged in to save!");
+                    return;
+                }
+
+                db.collection("sportsDay").doc("data").set({
+                    events: eventDetails
+                }, { merge: true })
+                    .then(() => {
+                        renderEventList(currentCategory);
+                        // Critical Fix: Update Public View immediately (if needed locally, though listener handles it)
+                        if (typeof renderPublicEvents === 'function') renderPublicEvents();
+                        alert(`Event "${newName}" created successfully!`);
+                    });
 
                 // Critical Fix: Update Public View immediately
                 if (typeof renderPublicEvents === 'function') {
@@ -1526,10 +1553,19 @@ function initAdminMode() {
         deleteEventBtn.addEventListener('click', () => {
             if (confirm(`Are you sure you want to delete ${currentEventName}?`)) {
                 delete eventDetails[currentEventName];
-                localStorage.setItem('sportsDayEventDetails', JSON.stringify(eventDetails));
-                renderEventList(currentCategory);
-                adminEditForm.style.display = 'none';
-                adminWelcomeMsg.style.display = 'block';
+
+                if (!auth.currentUser) return;
+
+                // For delete, we might need to set the whole object or use update with deleteField if we knew the path.
+                // Since we store all events in one 'events' map, we set the whole map again.
+                db.collection("sportsDay").doc("data").set({
+                    events: eventDetails
+                }, { merge: true }) // merge true is fine as we are replacing the 'events' key effectively with modified object
+                    .then(() => {
+                        renderEventList(currentCategory);
+                        adminEditForm.style.display = 'none';
+                        adminWelcomeMsg.style.display = 'block';
+                    });
             }
         });
     }
