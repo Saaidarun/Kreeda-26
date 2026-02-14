@@ -719,49 +719,90 @@ const eventDetails = {
 };
 
 // ========================================
-// Load Saved Results from localStorage
-// ========================================
-// ========================================
-// Load Saved Results from localStorage or Data File
+// Load Saved Results from Firestore (Real-time)
 // ========================================
 function loadSavedResults() {
-    try {
-        const saved = localStorage.getItem('sportsDayEventDetails');
+    // Check if Firebase is available
+    if (typeof db === 'undefined') {
+        console.error("Firebase not initialized!");
+        return;
+    }
 
-        // 1. Load from localStorage (Admin/Local updates)
-        if (saved) {
-            console.log("Loading data from localStorage");
-            const savedData = JSON.parse(saved);
-            mergeData(savedData);
-        }
-        // 2. Load from data.js (Public/GitHub updates)
-        else if (window.sportsDayData && window.sportsDayData.events) {
-            console.log("Loading data from properties file (data.js)");
-            mergeData(window.sportsDayData.events);
-        }
+    // Real-time listener
+    db.collection("sportsDay").doc("data").onSnapshot((doc) => {
+        if (doc.exists) {
+            console.log("Received real-time update from Firebase!");
+            const savedData = doc.data();
 
-        // Helper to merge data
-        function mergeData(sourceData) {
-            Object.keys(sourceData).forEach(eventName => {
-                if (eventDetails[eventName]) {
-                    const savedEvent = sourceData[eventName];
-                    // Deep merge logic
-                    if (savedEvent.boys) Object.assign(eventDetails[eventName].boys, savedEvent.boys);
-                    if (savedEvent.girls) Object.assign(eventDetails[eventName].girls, savedEvent.girls);
-                    if (savedEvent.results) eventDetails[eventName].results = savedEvent.results;
-                    // Event props
-                    ['date', 'time', 'venue', 'fixtures', 'type', 'eventType'].forEach(prop => {
-                        if (savedEvent[prop] !== undefined) eventDetails[eventName][prop] = savedEvent[prop];
-                    });
-                } else {
-                    // New event
-                    eventDetails[eventName] = sourceData[eventName];
-                }
-            });
-        }
+            // Merge Events
+            if (savedData.events) {
+                mergeData(savedData.events);
+            }
+            // Merge Gallery (handled separately in getGalleryImages, but we can sync here)
+            if (savedData.gallery) {
+                // We'll let getGalleryImages read this via a global variable or simpler:
+                // Just update the global gallery array and re-render
+                window.firebaseGallery = savedData.gallery;
+                initGallery();
+                if (typeof initAdminGallery === 'function') renderAdminGalleryList();
+            }
 
-    } catch (e) {
-        console.warn('Could not load saved event data:', e);
+            // Re-calculate points and render
+            calculatePoints();
+            renderPublicEvents(); // Ensure this is defined
+        } else {
+            console.log("No data found in Firebase. Creating default...");
+            // First run migration if needed
+            migrateDataToFirebase();
+        }
+    }, (error) => {
+        console.error("Error getting data:", error);
+    });
+
+    // Helper to merge data
+    function mergeData(sourceData) {
+        Object.keys(sourceData).forEach(eventName => {
+            if (eventDetails[eventName]) {
+                const savedEvent = sourceData[eventName];
+                // Deep merge logic
+                if (savedEvent.boys) Object.assign(eventDetails[eventName].boys, savedEvent.boys);
+                if (savedEvent.girls) Object.assign(eventDetails[eventName].girls, savedEvent.girls);
+                if (savedEvent.results) eventDetails[eventName].results = savedEvent.results;
+                // Event props
+                ['date', 'time', 'venue', 'fixtures', 'type', 'eventType'].forEach(prop => {
+                    if (savedEvent[prop] !== undefined) eventDetails[eventName][prop] = savedEvent[prop];
+                });
+            } else {
+                // New event
+                eventDetails[eventName] = sourceData[eventName];
+            }
+        });
+    }
+}
+
+// One-time migration function
+function migrateDataToFirebase() {
+    // Check if we have local data to migrate
+    const localEvents = localStorage.getItem('sportsDayEventDetails');
+    const localGallery = localStorage.getItem('sportsDayGalleryImages');
+
+    // If we have data.js data, use that too
+    const fallbackEvents = (window.sportsDayData && window.sportsDayData.events) || {};
+    const fallbackGallery = (window.sportsDayData && window.sportsDayData.gallery) || [];
+
+    const eventsToSave = localEvents ? JSON.parse(localEvents) : fallbackEvents;
+    const galleryToSave = localGallery ? JSON.parse(localGallery) : fallbackGallery;
+
+    if (Object.keys(eventsToSave).length > 0 || galleryToSave.length > 0) {
+        db.collection("sportsDay").doc("data").set({
+            events: eventsToSave,
+            gallery: galleryToSave
+        }, { merge: true })
+            .then(() => {
+                console.log("Migration successful!");
+                alert("Data successfully migrated to Firebase!");
+            })
+            .catch((error) => console.error("Migration failed:", error));
     }
 }
 
@@ -1275,64 +1316,9 @@ function initAdminMode_OLD() {
 // ========================================
 function initAdminMode() {
     // 1. Check if we have saved data in localStorage and override eventDetails
-    const savedData = localStorage.getItem('sportsDayEventDetails');
-    if (savedData) {
-        try {
-            const parsedData = JSON.parse(savedData);
-
-            // Smart Merge: 
-            // 1. Iterate over saved data and update existing keys or add new ones (from user edits).
-            // 2. Do NOT delete keys from eventDetails that are NOT in savedData (this preserves new default events).
-
-            Object.keys(parsedData).forEach(eventName => {
-                const savedEvent = parsedData[eventName];
-                if (eventDetails[eventName]) {
-                    // If event exists in default, merge deeper (boys/girls)
-                    // We want to keep default structure if saved data is missing a category (e.g. added later)
-                    // But if saved data has specific category data, it should override default.
-                    Object.keys(savedEvent).forEach(category => {
-                        // e.g. category = 'boys' or 'girls'
-                        if (eventDetails[eventName][category]) {
-                            Object.assign(eventDetails[eventName][category], savedEvent[category]);
-                        } else {
-                            eventDetails[eventName][category] = savedEvent[category];
-                        }
-                    });
-                } else {
-                    // Event exists in saved but not in default (custom event created by user)
-                    eventDetails[eventName] = savedEvent;
-                }
-            });
-
-            console.log('✅ Merged event details from local storage');
-        } catch (e) {
-            console.error('Failed to parse saved event details:', e);
-        }
-
-        // --- Data Cleanup / Migration ---
-        // Ensure Kabaddi is removed from Girls even if it was in saved data
-        if (eventDetails['Kabaddi'] && eventDetails['Kabaddi'].girls) {
-            delete eventDetails['Kabaddi'].girls;
-            console.log('🧹 Cleaned up deprecated Kabaddi (Girls) data');
-        }
-
-        // Fix malformed Athletics events (created before the fix)
-        Object.keys(eventDetails).forEach(key => {
-            const ev = eventDetails[key];
-            if (ev.category === 'Athletics' && !ev.type && !ev.boys && !ev.girls) {
-                console.log(`🔧 Repairing malformed event: ${key}`);
-                ev.type = 'Athletics';
-                ev.eventType = 'Individual';
-                ev.boys = { date: ev.date || '', time: ev.time || '', venue: ev.venue || '', category: 'Boys', icon: '🏃', results: {}, fixtures: [] };
-                ev.girls = { date: ev.date || '', time: ev.time || '', venue: ev.venue || '', category: 'Girls', icon: '🏃', results: {}, fixtures: [] };
-                // Remove flat properties to avoid confusion
-                delete ev.date;
-                delete ev.time;
-                delete ev.venue;
-                delete ev.category;
-            }
-        });
-    }
+    // OLD LOGIC REMOVED: Now handled by loadSavedResults() which syncs with Firebase/Data.js
+    // This avoids double-loading and potential merge conflicts/errors.
+    console.log("Admin Mode Initializing...");
 
     const adminTrigger = document.getElementById('adminTrigger');
     const adminLoginModal = document.getElementById('adminLoginModal');
@@ -1991,23 +1977,36 @@ function initSportsDay() {
 document.addEventListener('DOMContentLoaded', initSportsDay);
 
 // ========================================
+// Save Event Data to Firestore
+// ========================================
+function saveEventData() {
+    if (!auth.currentUser) {
+        alert("You must be logged in to save changes!");
+        return;
+    }
+
+    db.collection("sportsDay").doc("data").set({
+        events: eventDetails
+    }, { merge: true })
+        .then(() => {
+            // Success handled by listener
+            console.log("Data saved to Firestore");
+        })
+        .catch((error) => {
+            console.error("Error saving data: ", error);
+            alert("Error saving data: " + error.message);
+        });
+}
+
+// ========================================
 // Photo Gallery Implementation
 // ========================================
 
 const defaultGalleryImages = [];
 
 function getGalleryImages() {
-    // 1. Try LocalStorage (Admin updates)
-    let uploaded = JSON.parse(localStorage.getItem('sportsDayGalleryImages') || '[]');
-
-    // 2. Fallback to data.js (Public updates)
-    if (uploaded.length === 0 && window.sportsDayData && window.sportsDayData.gallery) {
-        uploaded = window.sportsDayData.gallery;
-    }
-
-    // Note: We used to have default/local images here, but we removed them.
-    // If we want to restore any hardcoded local images, we'd merge them here.
-    return uploaded;
+    // Use the gallery data synced from Firebase listener
+    return window.firebaseGallery || [];
 }
 
 function initGallery() {
@@ -2183,12 +2182,17 @@ function initAdminGallery() {
         });
     }
 
-    // Upload Logic
+    // Upload Logic (Firebase Storage)
     const uploadBtn = document.getElementById('uploadPhotoBtn');
     const fileInput = document.getElementById('adminGalleryUpload');
 
     if (uploadBtn && fileInput) {
         uploadBtn.addEventListener('click', () => {
+            if (!auth.currentUser) {
+                alert("You must be logged in!");
+                return;
+            }
+
             const file = fileInput.files[0];
             const selectedEvent = eventSelect ? eventSelect.value : '';
 
@@ -2197,32 +2201,52 @@ function initAdminGallery() {
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const base64Src = e.target.result;
+            const fileName = `gallery/${Date.now()}_${file.name}`;
+            const storageRef = storage.ref(fileName);
 
-                // Save to LocalStorage
-                const currentUploaded = JSON.parse(localStorage.getItem('sportsDayGalleryImages') || '[]');
-                // Store filename and event tag
-                currentUploaded.push({
-                    src: base64Src,
-                    isLocal: false,
-                    name: file.name,
-                    tag: selectedEvent
-                });
-                localStorage.setItem('sportsDayGalleryImages', JSON.stringify(currentUploaded));
+            // Upload Task
+            const uploadTask = storageRef.put(file);
 
-                // Refresh Views
-                renderAdminGalleryList();
-                // Refresh public grid if initGallery exists
-                if (typeof initGallery === 'function') initGallery();
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Progress function (optional)
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log('Upload is ' + progress + '% done');
+                    uploadBtn.textContent = `Uploading ${Math.round(progress)}%...`;
+                },
+                (error) => {
+                    // Error function
+                    console.error("Upload failed:", error);
+                    alert("Upload failed: " + error.message);
+                    uploadBtn.textContent = 'Upload';
+                },
+                () => {
+                    // Complete function
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        console.log('File available at', downloadURL);
 
-                // Clear Input
-                fileInput.value = '';
-                if (eventSelect) eventSelect.value = ''; // Reset select
-                alert('Photo uploaded successfully!');
-            };
-            reader.readAsDataURL(file);
+                        const newImage = {
+                            src: downloadURL,
+                            isLocal: false,
+                            name: file.name,
+                            tag: selectedEvent
+                        };
+
+                        const currentGallery = window.firebaseGallery || [];
+                        currentGallery.push(newImage);
+
+                        db.collection("sportsDay").doc("data").set({
+                            gallery: currentGallery
+                        }, { merge: true })
+                            .then(() => {
+                                alert("Photo uploaded successfully!");
+                                fileInput.value = '';
+                                if (eventSelect) eventSelect.value = '';
+                                uploadBtn.textContent = 'Upload';
+                            });
+                    });
+                }
+            );
         });
     }
 
@@ -2230,11 +2254,11 @@ function initAdminGallery() {
     const deleteAllBtn = document.getElementById('deleteAllPhotosBtn');
     if (deleteAllBtn) {
         deleteAllBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to delete ALL photos? This cannot be undone.')) {
-                localStorage.removeItem('sportsDayGalleryImages');
-                renderAdminGalleryList();
-                if (typeof initGallery === 'function') initGallery();
-                alert('All photos deleted successfully.');
+            if (!auth.currentUser) return;
+            if (confirm('Are you sure you want to delete ALL photos?')) {
+                db.collection("sportsDay").doc("data").update({
+                    gallery: []
+                }).then(() => alert("All photos deleted."));
             }
         });
     }
@@ -2294,6 +2318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Initialize Galleries
     if (typeof initGallery === 'function') initGallery();
     if (typeof initAdminGallery === 'function') initAdminGallery();
+    if (typeof initAdminMode === 'function') initAdminMode();
 
     // Re-trigger scroll reveal for new items
     setTimeout(() => {
