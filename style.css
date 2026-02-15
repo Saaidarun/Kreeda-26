@@ -409,6 +409,71 @@ body {
 }
 
 /* ========================================
+   Gallery Section
+   ======================================== */
+.gallery-section {
+    padding: var(--section-padding);
+    background-color: var(--card-bg);
+    text-align: center;
+}
+
+.gallery-cta-container {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 78, 137, 0.1));
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 107, 53, 0.2);
+    box-shadow: 0 10px 30px var(--shadow);
+    transition: var(--transition);
+}
+
+.gallery-cta-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px var(--shadow);
+}
+
+.gallery-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+}
+
+.gallery-cta-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.gallery-cta-container p {
+    margin-bottom: 30px;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.gallery-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #4285F4;
+    /* Google Blue */
+    color: white;
+}
+
+.gallery-btn:hover {
+    background: #3367D6;
+    transform: translateY(-3px);
+}
+
+/* ========================================
    Houses Section
    ======================================== */
 .houses-section {

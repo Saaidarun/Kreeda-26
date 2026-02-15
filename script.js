@@ -730,14 +730,7 @@ function loadSavedResults() {
             if (savedData.events) {
                 mergeData(savedData.events);
             }
-            // Merge Gallery (handled separately in getGalleryImages, but we can sync here)
-            if (savedData.gallery) {
-                // We'll let getGalleryImages read this via a global variable or simpler:
-                // Just update the global gallery array and re-render
-                window.firebaseGallery = savedData.gallery;
-                initGallery();
-                if (typeof initAdminGallery === 'function') renderAdminGalleryList();
-            }
+            // Gallery handling removed (using external Google Photos link)
 
             // Re-calculate points and render
             calculatePoints();
@@ -776,19 +769,15 @@ function loadSavedResults() {
 function migrateDataToFirebase() {
     // Check if we have local data to migrate
     const localEvents = localStorage.getItem('sportsDayEventDetails');
-    const localGallery = localStorage.getItem('sportsDayGalleryImages');
 
     // If we have data.js data, use that too
     const fallbackEvents = (window.sportsDayData && window.sportsDayData.events) || {};
-    const fallbackGallery = (window.sportsDayData && window.sportsDayData.gallery) || [];
 
     const eventsToSave = localEvents ? JSON.parse(localEvents) : fallbackEvents;
-    const galleryToSave = localGallery ? JSON.parse(localGallery) : fallbackGallery;
 
-    if (Object.keys(eventsToSave).length > 0 || galleryToSave.length > 0) {
+    if (Object.keys(eventsToSave).length > 0) {
         db.collection("sportsDay").doc("data").set({
-            events: eventsToSave,
-            gallery: galleryToSave
+            events: eventsToSave
         }, { merge: true })
             .then(() => {
                 console.log("Migration successful!");
@@ -804,16 +793,15 @@ function migrateDataToFirebase() {
 function downloadDataFile() {
     // 1. Gather current state
     const currentEvents = eventDetails;
-    const currentGallery = getGalleryImages().filter(img => !img.isLocal); // Only keep uploaded ones
+    // Gallery removed
 
     // 2. Construct Data Object
-    const dataObj = {
-        events: currentEvents,
-        gallery: currentGallery
+    const dataToSave = {
+        events: currentEvents
     };
 
     // 3. Convert to JS String
-    const fileContent = `// ========================================\n// Sports Day Data File\n// Generated: ${new Date().toLocaleString()}\n// ========================================\n\nwindow.sportsDayData = ${JSON.stringify(dataObj, null, 4)};`;
+    const fileContent = `// ========================================\n// Sports Day Data File\n// Generated: ${new Date().toLocaleString()}\n// ========================================\n\nwindow.sportsDayData = ${JSON.stringify(dataToSave, null, 4)};`;
 
     // 4. Trigger Download
     const blob = new Blob([fileContent], { type: 'text/javascript' });
