@@ -1308,7 +1308,11 @@ function initAdminMode() {
             return;
         }
 
-        auth.signInWithEmailAndPassword(email, pass)
+        // Set Persistence to LOCAL (Keep user logged in)
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(() => {
+                return auth.signInWithEmailAndPassword(email, pass);
+            })
             .then((userCredential) => {
                 // Signed in
                 console.log("Login Successful:", userCredential.user.email);
