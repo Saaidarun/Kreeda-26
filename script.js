@@ -194,11 +194,11 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY > 100) {
-        navbar.style.background = 'var(--card-bg)';
-        navbar.style.boxShadow = '0 4px 20px var(--shadow)';
+        navbar.style.background = '#ffffff';
+        navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
     } else {
-        navbar.style.background = 'var(--card-bg)';
-        navbar.style.boxShadow = '0 2px 10px var(--shadow)';
+        navbar.style.background = '#ffffff';
+        navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
     }
 });
 

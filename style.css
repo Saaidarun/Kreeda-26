@@ -63,8 +63,9 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: var(--card-bg);
-    box-shadow: 0 2px 10px var(--shadow);
+    background: #ffffff;
+    /* Force White Background */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     transition: var(--transition);
 }
@@ -130,7 +131,8 @@ body {
 
 .nav-link {
     text-decoration: none;
-    color: var(--text-color);
+    color: #333333;
+    /* Dark text for white header */
     font-weight: 500;
     transition: var(--transition);
     position: relative;
@@ -173,7 +175,8 @@ body {
     display: none;
     cursor: pointer;
     font-size: 1.5rem;
-    color: var(--text-color);
+    color: #333333;
+    /* Dark icon for white header */
     margin-right: 15px;
 }
 
@@ -189,7 +192,8 @@ body {
         top: 70px;
         gap: 0;
         flex-direction: column;
-        background-color: var(--card-bg);
+        background-color: #ffffff;
+        /* White background for mobile menu */
         width: 100%;
         text-align: center;
         transition: 0.3s;
