@@ -1998,11 +1998,16 @@ function saveEventData() {
 // Photo Gallery Implementation
 // ========================================
 
-const defaultGalleryImages = [];
+// Use this array to add images manually via code
+const customGalleryImages = [
+    // Example:
+    // { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
+];
 
 function getGalleryImages() {
-    // Use the gallery data synced from Firebase listener
-    return window.firebaseGallery || [];
+    // Combine Firebase images with manual code-added images
+    const fbImages = window.firebaseGallery || [];
+    return [...fbImages, ...customGalleryImages];
 }
 
 function initGallery() {
