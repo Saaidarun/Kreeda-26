@@ -1296,7 +1296,6 @@ function initAdminMode() {
     if (adminDashboardClose) adminDashboardClose.addEventListener('click', closeAdminModals);
 
     const handleLogin = () => {
-        // DEBUGGING ALERTS
         const email = adminPasswordInput.value;
         const passField = document.getElementById('adminRealPassword');
         const pass = passField ? passField.value : '';
@@ -1304,18 +1303,14 @@ function initAdminMode() {
         console.log("Attempting login with:", email);
 
         if (!email || !pass) {
-            alert("Please enter both email and password.");
             adminError.textContent = "Please enter both email and password.";
             adminError.style.display = 'block';
             return;
         }
 
-        alert(`Attempting login for: ${email}... Please wait.`);
-
         auth.signInWithEmailAndPassword(email, pass)
             .then((userCredential) => {
                 // Signed in
-                alert("Login Successful! Opening Dashboard...");
                 console.log("Login Successful:", userCredential.user.email);
                 adminLoginModal.classList.remove('active');
                 openAdminDashboard();
@@ -1326,7 +1321,6 @@ function initAdminMode() {
             })
             .catch((error) => {
                 console.error("Login Failed:", error);
-                alert("Login Error: " + error.message);
                 adminError.textContent = "Login Failed: " + error.message;
                 adminError.style.display = 'block';
             });
