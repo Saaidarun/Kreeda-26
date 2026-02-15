@@ -1296,18 +1296,46 @@ function initAdminMode() {
     if (adminDashboardClose) adminDashboardClose.addEventListener('click', closeAdminModals);
 
     const handleLogin = () => {
-        const password = adminPasswordInput.value;
-        if (password === 'admin123') {
-            adminLoginModal.classList.remove('active');
-            openAdminDashboard();
-        } else {
+        const email = adminPasswordInput.value;
+        const pass = document.getElementById('adminRealPassword').value;
+
+        if (!email || !pass) {
+            adminError.textContent = "Please enter both email and password.";
             adminError.style.display = 'block';
+            return;
         }
+
+        auth.signInWithEmailAndPassword(email, pass)
+            .then((userCredential) => {
+                // Signed in
+                console.log("Login Successful:", userCredential.user.email);
+                adminLoginModal.classList.remove('active');
+                openAdminDashboard();
+                // Clear fields
+                adminPasswordInput.value = '';
+                document.getElementById('adminRealPassword').value = '';
+                adminError.style.display = 'none';
+            })
+            .catch((error) => {
+                console.error("Login Failed:", error);
+                adminError.textContent = "Login Failed: " + error.message;
+                adminError.style.display = 'block';
+            });
     };
 
     if (adminLoginBtn) adminLoginBtn.addEventListener('click', handleLogin);
     if (adminPasswordInput) {
         adminPasswordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const realPass = document.getElementById('adminRealPassword');
+                if (realPass) realPass.focus();
+            }
+        });
+    }
+
+    const adminRealPasswordInput = document.getElementById('adminRealPassword');
+    if (adminRealPasswordInput) {
+        adminRealPasswordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') handleLogin();
         });
     }
