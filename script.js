@@ -1301,6 +1301,14 @@ function initAdminMode() {
     if (adminLoginClose) adminLoginClose.addEventListener('click', closeAdminModals);
     if (adminDashboardClose) adminDashboardClose.addEventListener('click', closeAdminModals);
 
+    // Logout Button Logic
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+    if (adminLogoutBtn) {
+        adminLogoutBtn.addEventListener('click', () => {
+            closeAdminModals(); // This triggers signOut
+        });
+    }
+
     const handleLogin = () => {
         const email = adminPasswordInput.value;
         const passField = document.getElementById('adminRealPassword');
@@ -1314,8 +1322,11 @@ function initAdminMode() {
             return;
         }
 
-        // Standard Login (No Persistence forced, relies on session but we logout on close)
-        auth.signInWithEmailAndPassword(email, pass)
+        // FORCE LOGIN EVERY TIME (Persistence.NONE)
+        auth.setPersistence(firebase.auth.Auth.Persistence.NONE)
+            .then(() => {
+                return auth.signInWithEmailAndPassword(email, pass);
+            })
             .then((userCredential) => {
                 // Signed in
                 console.log("Login Successful:", userCredential.user.email);
