@@ -1999,13 +1999,6 @@ function saveEventData() {
 // ========================================
 
 // Use this array to add images manually via code
-const customGalleryImages = [
-    // Example:
-    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
-    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
-    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
-    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
-];
 
 function getGalleryImages() {
     // Combine Firebase images with manual code-added images
