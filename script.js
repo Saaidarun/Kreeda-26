@@ -1286,10 +1286,16 @@ function initAdminMode() {
         }
     });
 
-    // Close Modals
+    // Close Modals (Force Logout on Close)
     const closeAdminModals = () => {
         adminLoginModal.classList.remove('active');
         adminDashboardModal.classList.remove('active');
+        // Force logout so next time they must login again
+        auth.signOut().then(() => {
+            console.log("Admin Logged Out (Modal Closed)");
+        }).catch((error) => {
+            console.error("Logout Error:", error);
+        });
     };
 
     if (adminLoginClose) adminLoginClose.addEventListener('click', closeAdminModals);
@@ -1308,11 +1314,8 @@ function initAdminMode() {
             return;
         }
 
-        // Set Persistence to LOCAL (Keep user logged in)
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-            .then(() => {
-                return auth.signInWithEmailAndPassword(email, pass);
-            })
+        // Standard Login (No Persistence forced, relies on session but we logout on close)
+        auth.signInWithEmailAndPassword(email, pass)
             .then((userCredential) => {
                 // Signed in
                 console.log("Login Successful:", userCredential.user.email);
