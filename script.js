@@ -2002,6 +2002,9 @@ function saveEventData() {
 const customGalleryImages = [
     // Example:
     { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
+    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
+    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
+    { src: "https://example.com/photo.jpg", tag: "Cricket", name: "Finals" },
 ];
 
 function getGalleryImages() {
