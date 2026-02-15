@@ -1248,14 +1248,45 @@ function initAdminMode() {
 
     if (!adminTrigger) return;
 
-    // --- Trigger & Login ---
-    adminTrigger.addEventListener('click', () => {
-        adminLoginModal.classList.add('active');
-        adminPasswordInput.value = '';
-        adminError.style.display = 'none';
-        adminPasswordInput.focus();
+    // Auth State Listener (The Fix for Persistent Login & Dashboard Access)
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in.
+            console.log("Admin Logged In:", user.email);
+            // Verify if dashboard is closed but user clicked trigger? No, just let trigger handle it.
+            // Be sure login modal is closed if open
+            if (adminLoginModal.classList.contains('active')) {
+                adminLoginModal.classList.remove('active');
+                openAdminDashboard();
+            }
+        } else {
+            // User is signed out.
+            console.log("Admin Logged Out");
+            // If dashboard is open, close it (security)
+            if (adminDashboardModal.classList.contains('active')) {
+                adminDashboardModal.classList.remove('active');
+                alert("Session expired. Please log in again.");
+            }
+        }
     });
 
+    // Trigger Click with Auth Check
+    adminTrigger.addEventListener('click', () => {
+        if (auth.currentUser) {
+            // Already logged in, go straight to dashboard
+            openAdminDashboard();
+        } else {
+            // Not logged in, show login modal
+            adminLoginModal.classList.add('active');
+            adminPasswordInput.value = '';
+            // Reset fields
+            if (document.getElementById('adminRealPassword')) document.getElementById('adminRealPassword').value = '';
+            adminError.style.display = 'none';
+            adminPasswordInput.focus();
+        }
+    });
+
+    // Close Modals
     const closeAdminModals = () => {
         adminLoginModal.classList.remove('active');
         adminDashboardModal.classList.remove('active');
