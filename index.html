@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Carnival 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <img src="images/college-logo.png" alt="College Logo" class="college-logo">
+            </div>
+            <div class="nav-brand">Sports Day 2026</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#houses" class="nav-link">Houses</a></li>
+                <li><a href="#events" class="nav-link">Events</a></li>
+                <li><a href="#scoring" class="nav-link">Scoring</a></li>
+                <li><a href="#awards" class="nav-link">Awards</a></li>
+                <li><a href="#objectives" class="nav-link">Objectives</a></li>
+            </ul>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <img src="images/sports-logo.png" alt="MKCE Sports Logo" class="mkce-sports-logo">
+                <img src="images/kr-logo.png" alt="KR Logo" class="kr-logo">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header id="home" class="header">
+        <div class="header-overlay"></div>
+        <div class="container header-content">
+            <h1 class="college-name">M.Kumarasamy College of Engineering</h1>
+            <p class="department-name">Department of Physical Education</p>
+            <h2 class="main-title">Kreeda'26</h2>
+            <p class="subtitle">House System & Events Overview</p>
+            <div class="event-details">
+                <div class="detail-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>March 12, 2026</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>College Main Ground And Indoor</span>
+                </div>
+            </div>
+            <a href="#houses" class="cta-button">Explore Houses</a>
+        </div>
+    </header>
+
+    <!-- House System Section -->
+    <section id="houses" class="houses-section">
+        <div class="container">
+            <h2 class="section-title">Our Four Houses</h2>
+            <p class="section-subtitle">United by Sport, Divided by Colors</p>
+
+            <!-- Gender Toggle -->
+            <div class="gender-toggle-container">
+                <div class="gender-toggle">
+                    <button class="toggle-button active" data-category="boys">
+                        <i class="fas fa-male"></i> Boys
+                    </button>
+                    <button class="toggle-button" data-category="girls">
+                        <i class="fas fa-female"></i> Girls
+                    </button>
+                </div>
+                <p class="toggle-helper-text">
+                    <i class="fas fa-info-circle"></i> Students are assigned to houses based on the first letter of
+                    their name
+                </p>
+            </div>
+
+            <div class="houses-grid">
+                <!-- Red House -->
+                <div class="house-card" data-house="red">
+                    <div class="house-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="house-name">Red Rangers</h3>
+                    <div class="house-letters">
+                        <div class="letters-label">Letters:</div>
+                        <div class="letters-container">
+                            <span class="letter">F</span>
+                            <span class="letter">C</span>
+                            <span class="letter">D</span>
+                            <span class="letter">P</span>
+                            <span class="letter">L</span>
+                            <span class="letter">U</span>
+                            <span class="letter">V</span>
+                            <span class="letter">Y</span>
+                        </div>
+                    </div>
+
+                    <div class="house-motto">"Strength in Unity"</div>
+                </div>
+
+                <!-- Green House -->
+                <div class="house-card" data-house="green">
+                    <div class="house-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="house-name">Green Gladiators</h3>
+                    <div class="house-letters">
+                        <div class="letters-label">Letters:</div>
+                        <div class="letters-container">
+                            <span class="letter">A</span>
+                            <span class="letter">B</span>
+                            <span class="letter">H</span>
+                            <span class="letter">M</span>
+                        </div>
+                    </div>
+
+                    <div class="house-motto">"Rise and Thrive"</div>
+                </div>
+
+                <!-- Blue House -->
+                <div class="house-card" data-house="blue">
+                    <div class="house-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="house-name">Blue Blasters</h3>
+                    <div class="house-letters">
+                        <div class="letters-label">Letters:</div>
+                        <div class="letters-container">
+                            <span class="letter">G</span>
+                            <span class="letter">J</span>
+                            <span class="letter">K</span>
+                            <span class="letter">T</span>
+                            <span class="letter">N</span>
+                        </div>
+                    </div>
+
+                    <div class="house-motto">"Flow with Purpose"</div>
+                </div>
+
+                <!-- Yellow House -->
+                <div class="house-card" data-house="yellow">
+                    <div class="house-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3 class="house-name">Yellow Warriors</h3>
+                    <div class="house-letters">
+                        <div class="letters-label">Letters:</div>
+                        <div class="letters-container">
+                            <span class="letter">E</span>
+                            <span class="letter">I</span>
+                            <span class="letter">O</span>
+                            <span class="letter">R</span>
+                            <span class="letter">S</span>
+                        </div>
+                    </div>
+
+                    <div class="house-motto">"Shine Bright"</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sports Events Section -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <h2 class="section-title">Sports Events</h2>
+            <p class="section-subtitle">Compete, Excel, Triumph</p>
+
+            <div class="events-tabs">
+                <button class="tab-button active" data-tab="boys">
+                    <i class="fas fa-male"></i> Boys Events
+                </button>
+                <button class="tab-button" data-tab="girls">
+                    <i class="fas fa-female"></i> Girls Events
+                </button>
+                <button class="tab-button" data-tab="athletics">
+                    <i class="fas fa-running"></i> Athletics - Boys
+                </button>
+                <button class="tab-button" data-tab="athletics-girls">
+                    <i class="fas fa-running"></i> Athletics - Girls
+                </button>
+            </div>
+
+            <div class="events-content">
+                <!-- Boys Events -->
+                <!-- Boys Events -->
+                <div class="events-list active" id="boys-events">
+                    <div class="event-item">
+                        <i class="fas fa-baseball-ball"></i>
+                        <span>Ball Badminton</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-basketball-ball"></i>
+                        <span>Basketball</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-feather-alt"></i>
+                        <span>Badminton</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-chess"></i>
+                        <span>Chess</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-baseball-ball"></i>
+                        <span>Cricket</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-hand-rock"></i>
+                        <span>Handball</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-running"></i>
+                        <span>Kho-Kho</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-table-tennis"></i>
+                        <span>Table Tennis</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-table-tennis"></i>
+                        <span>Tennis</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-volleyball-ball"></i>
+                        <span>Volleyball</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-users"></i>
+                        <span>Kabaddi</span>
+                    </div>
+                    <div class="event-item">
+                        <i class="fas fa-futbol"></i>
+                        <span>Football</span>
+                    </div>
+                </div>
+
+                <!-- Girls Events -->
+                <!-- Girls Events -->
+                <div class="events-list" id="girls-events">
+                    <!-- Dynamically Populated -->
+                </div>
+
+                <!-- Athletics Events - Boys -->
+                <!-- Athletics Events - Boys -->
+                <div class="events-list" id="athletics-events">
+                    <!-- Dynamically Populated -->
+                </div>
+
+                <!-- Athletics Events - Girls -->
+                <!-- Athletics Events - Girls -->
+                <div class="events-list" id="athletics-girls-events">
+                    <!-- Dynamically Populated -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- House Captains & Vice-Captains Section -->
+    <section id="house-leaders" class="house-leaders-section">
+        <div class="container">
+            <h2 class="section-title">House Captains & Vice-Captains</h2>
+            <p class="section-subtitle">Meet Our House Leaders</p>
+
+            <div class="leaders-grid">
+                <!-- Boys Leaders Column -->
+                <div class="leaders-column">
+                    <h3 class="gender-title"><i class="fas fa-male"></i> Boys – House Leaders</h3>
+
+                    <!-- Yellow Warriors -->
+                    <div class="leader-card" data-house="yellow">
+                        <h4 class="house-title"><i class="fas fa-sun"></i> Yellow Warriors</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Sivaprakash R S (IV–IT)</p>
+                            <p><strong>Vice-Captain:</strong> Saaidarun S (III–CSE)</p>
+                        </div>
+                    </div>
+
+                    <!-- Blue Blasters -->
+                    <div class="leader-card" data-house="blue">
+                        <h4 class="house-title"><i class="fas fa-water"></i> Blue Blasters</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Ganesh Boopathi A (IV–EEE)</p>
+                            <p><strong>Vice-Captain:</strong> Thiyagarajan M (III–MECH)</p>
+                        </div>
+                    </div>
+                    <!-- Green Gladiators -->
+                    <div class="leader-card" data-house="green">
+                        <h4 class="house-title"><i class="fas fa-leaf"></i> Green Gladiators</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Gokul K (IV–CSE)</p>
+                            <p><strong>Vice-Captain:</strong> Akash M A (III–IT)</p>
+                        </div>
+                    </div>
+                    <!-- Red Rangers -->
+                    <div class="leader-card" data-house="red">
+                        <h4 class="house-title"><i class="fas fa-fire"></i> Red Rangers</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Vishva Priyan K (IV–MECH)</p>
+                            <p><strong>Vice-Captain:</strong> Prasannakumar S (III–CSBS)</p>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- Girls Leaders Column -->
+                <div class="leaders-column">
+                    <h3 class="gender-title"><i class="fas fa-female"></i> Girls – House Leaders</h3>
+
+                    <!-- Yellow Warriors -->
+                    <div class="leader-card" data-house="yellow">
+                        <h4 class="house-title"><i class="fas fa-sun"></i> Yellow Warriors</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Madhu Varshini K (IV–CSE)</p>
+                            <p><strong>Vice-Captain:</strong> Aruna R (III–IT)</p>
+                        </div>
+                    </div>
+
+                    <!-- Blue Blasters -->
+                    <div class="leader-card" data-house="blue">
+                        <h4 class="house-title"><i class="fas fa-water"></i> Blue Blasters</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Deepika Merlin N (IV–AIML)</p>
+                            <p><strong>Vice-Captain:</strong> Rakshavikashini K (III–EEE)</p>
+                        </div>
+                    </div>
+
+                    <!-- Green Gladiators -->
+                    <div class="leader-card" data-house="green">
+                        <h4 class="house-title"><i class="fas fa-leaf"></i> Green Gladiators</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Harini S (IV–AIML)</p>
+                            <p><strong>Vice-Captain:</strong> Lithika P (III–EEE)</p>
+                        </div>
+                    </div>
+
+                    <!-- Red Rangers -->
+                    <div class="leader-card" data-house="red">
+                        <h4 class="house-title"><i class="fas fa-fire"></i> Red Rangers</h4>
+                        <div class="leader-info">
+                            <p><strong>Captain:</strong> Navajitha S (IV–IT)</p>
+                            <p><strong>Vice-Captain:</strong> Namitha S P (III–IT)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- House Contact Details Section -->
+    <section id="contacts" class="contacts-section">
+        <div class="container">
+            <h2 class="section-title">House Contact Details</h2>
+            <p class="section-subtitle">Each house has a House Captain / In-charge for coordination during events</p>
+
+            <!-- Contact Toggle -->
+            <div class="gender-toggle-container" style="margin-bottom: 30px;">
+                <div class="gender-toggle">
+                    <button class="contact-toggle-btn active" data-target="boys-contacts">
+                        <i class="fas fa-male"></i> Boys
+                    </button>
+                    <button class="contact-toggle-btn" data-target="girls-contacts">
+                        <i class="fas fa-female"></i> Girls
+                    </button>
+                </div>
+            </div>
+
+            <!-- Boys Contacts -->
+            <div id="boys-contacts" class="contacts-grid active">
+                <!-- Yellow House Contact (Updated) -->
+                <div class="contact-card" data-house="yellow">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <h3>Yellow Warriors</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Sivaprakash R S (IV–IT) – <a href="tel:8148828405"
+                                        class="phone-link">8148828405</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Saaidarun S (III–CSE) – <a href="tel:6380547180"
+                                        class="phone-link">6380547180</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/LcbqCRLg0qBB6fGXqHohLs" target="_blank" rel="noopener noreferrer"
+                        class="whatsapp-group-link" data-house="yellow">
+                        <i class="fab fa-whatsapp"></i> Join Yellow Warriors WhatsApp Group
+                    </a>
+                </div>
+
+                <!-- Blue House Contact -->
+                <div class="contact-card" data-house="blue">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h3>Blue Blasters</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Ganesh Boopathi A (IV–EEE) – <a href="tel:9080535773"
+                                        class="phone-link">9080535773</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Thiyagarajan M (III–MECH) – <a href="tel:7868076771"
+                                        class="phone-link">7868076771</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/J4ZBCDBnGXsH91B3tWczhv?mode=gi_t" target="_blank"
+                        rel="noopener noreferrer" class="whatsapp-group-link" data-house="blue">
+                        <i class="fab fa-whatsapp"></i> Join Blue Blasters WhatsApp Group
+                    </a>
+                </div>
+
+                <!-- Green House Contact -->
+                <div class="contact-card" data-house="green">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Green Gladiators</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Gokul K (IV–CSE) – <a href="tel:9361204304"
+                                        class="phone-link">9361204304</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Akash M A (III–IT) – <a href="tel:9080997856"
+                                        class="phone-link">9080997856</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/ClV6VoFj6FjAXYavDyRtIg?mode=gi_c" target="_blank"
+                        rel="noopener noreferrer" class="whatsapp-group-link" data-house="green">
+                        <i class="fab fa-whatsapp"></i> Join Green Gladiators WhatsApp Group
+                    </a>
+                </div>
+
+                <!-- Red House Contact -->
+                <div class="contact-card" data-house="red">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3>Red Rangers</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Vishva Priyan K (IV–MECH) – <a href="tel:6369028735"
+                                        class="phone-link">6369028735</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Prasannakumar S (III–CSBS) – <a href="tel:8015045748"
+                                        class="phone-link">8015045748</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/CpeP0pPvBGPK4wUD9uuMM2" target="_blank" rel="noopener noreferrer"
+                        class="whatsapp-group-link" data-house="red">
+                        <i class="fab fa-whatsapp"></i> Join Red Rangers WhatsApp Group
+                    </a>
+                </div>
+            </div>
+
+            <!-- Girls Contacts -->
+            <div id="girls-contacts" class="contacts-grid" style="display: none;">
+                <!-- Yellow House Contact (Girls) -->
+                <div class="contact-card" data-house="yellow">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <h3>Yellow Warriors</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Madhu Varshini K (IV–CSE) – <a href="tel:9361895024"
+                                        class="phone-link">9361895024</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Aruna R (III–IT) – <a href="tel:9342044342"
+                                        class="phone-link">9342044342</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/D8BhAOno2yYFELZ5AJaNac?mode=gi_t" target="_blank"
+                        rel="noopener noreferrer" class="whatsapp-group-link" data-house="yellow">
+                        <i class="fab fa-whatsapp"></i> Join Yellow Warriors WhatsApp Group
+                    </a>
+                </div>
+
+                <!-- Blue House Contact (Girls) -->
+                <div class="contact-card" data-house="blue">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h3>Blue Blasters</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Deepika Merlin N (IV–AIML) – <a href="tel:7010570825"
+                                        class="phone-link">7010570825</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Rakshavikashini K (III–EEE) – <a href="tel:9345794259"
+                                        class="phone-link">9345794259</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/EhBRtyF5uqdLrygfJayAcB" target="_blank" rel="noopener noreferrer"
+                        class="whatsapp-group-link" data-house="blue">
+                        <i class="fab fa-whatsapp"></i> Join Blue Blasters WhatsApp Group
+                    </a>
+                </div>
+
+                <!-- Green House Contact (Girls) -->
+                <div class="contact-card" data-house="green">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Green Gladiators</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Harini S (IV–AIML) – <a href="tel:9361741668"
+                                        class="phone-link">9361741668</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Lithika P (III–EEE) – <a href="tel:9042323218"
+                                        class="phone-link">9042323218</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/EKBWcWTct21C3SmRJCX7qr?mode=gi_c" target="_blank"
+                        rel="noopener noreferrer" class="whatsapp-group-link" data-house="green">
+                        <i class="fab fa-whatsapp"></i> Join Green Gladiators WhatsApp Group
+                    </a>
+                </div>
+
+                <!-- Red House Contact (Girls) -->
+                <div class="contact-card" data-house="red">
+                    <div class="contact-header">
+                        <div class="contact-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h3>Red Rangers</h3>
+                    </div>
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span class="label">Captain Name:</span>
+                                <span class="value">Navajitha S (IV–IT) – <a href="tel:9361121775"
+                                        class="phone-link">9361121775</a></span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-user-shield"></i>
+                            <div>
+                                <span class="label">Vice-Captain Name:</span>
+                                <span class="value">Namitha S P (III–IT) – <a href="tel:9786920531"
+                                        class="phone-link">9786920531</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://chat.whatsapp.com/DBEKYJkQEswAz0P2pFMzij?mode=gi_t" target="_blank"
+                        rel="noopener noreferrer" class="whatsapp-group-link" data-house="red">
+                        <i class="fab fa-whatsapp"></i> Join Red Rangers WhatsApp Group
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scoring System & Leaderboard Section -->
+    <section id="scoring" class="scoring-section">
+        <div class="container">
+            <h2 class="section-title">Points System & Leaderboard</h2>
+            <p class="section-subtitle">Live Standings & Scoring Rules</p>
+
+            <div class="scoring-grid">
+                <!-- Leaderboard -->
+                <div class="leaderboard-card">
+                    <h3><i class="fas fa-trophy"></i> Live Leaderboard</h3>
+
+                    <!-- Leaderboard Tabs -->
+                    <div class="leaderboard-tabs">
+                        <button class="leaderboard-tab active" data-category="boys">
+                            <i class="fas fa-male"></i> Boys Championship
+                        </button>
+                        <button class="leaderboard-tab" data-category="girls">
+                            <i class="fas fa-female"></i> Girls Championship
+                        </button>
+                    </div>
+
+                    <div class="leaderboard-table-container">
+                        <!-- Boys Table -->
+                        <table class="leaderboard-table active" id="boys-leaderboard">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>House</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="boys-leaderboard-body">
+                                <!-- Dynamically Populated -->
+                            </tbody>
+                        </table>
+
+                        <!-- Girls Table -->
+                        <table class="leaderboard-table" id="girls-leaderboard" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>House</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
+                            <tbody id="girls-leaderboard-body">
+                                <!-- Dynamically Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Scoring Rules -->
+                <div class="rules-card">
+                    <h3><i class="fas fa-clipboard-list"></i> Scoring Rules</h3>
+                    <div class="rules-list">
+                        <div class="rule-item">
+                            <div class="rule-icon"><i class="fas fa-running"></i></div>
+                            <div class="rule-content">
+                                <h4>Individual Athletics</h4>
+                                <div class="points-breakdown">
+                                    <span>🥇 1st: <strong>6 pts</strong></span>
+                                    <span>🥈 2nd: <strong>4.5 pts</strong></span>
+                                    <span>🥉 3rd: <strong>3 pts</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-icon"><i class="fas fa-users"></i></div>
+                            <div class="rule-content">
+                                <h4>Relay Events</h4>
+                                <div class="points-breakdown">
+                                    <span>🥇 1st: <strong>12 pts</strong></span>
+                                    <span>🥈 2nd: <strong>9 pts</strong></span>
+                                    <span>🥉 3rd: <strong>6 pts</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rule-item">
+                            <div class="rule-icon"><i class="fas fa-futbol"></i></div>
+                            <div class="rule-content">
+                                <h4>Team Games</h4>
+                                <div class="points-breakdown">
+                                    <span>🥇 Winner: <strong>10 pts</strong></span>
+                                    <span>🥈 Runner-up: <strong>5 pts</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards" class="awards-section">
+        <div class="container">
+            <h2 class="section-title">Awards</h2>
+            <p class="section-subtitle">Recognition for Excellence</p>
+
+            <div class="awards-container">
+                <!-- Awards -->
+                <div class="awards-card">
+                    <h3><i class="fas fa-award"></i> Special Awards</h3>
+                    <div class="award-list">
+                        <div class="award-item">
+                            <i class="fas fa-crown"></i>
+                            <span>Overall Champion House Trophy</span>
+                        </div>
+                        <div class="award-item">
+                            <i class="fas fa-medal"></i>
+                            <span>Fellowship for Zonal Winners</span>
+                        </div>
+                        <div class="award-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>Prize for Each Game Winner</span>
+                        </div>
+                        <div class="award-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Sportsmanship Award</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objectives Section -->
+    <section id="objectives" class="objectives-section">
+        <div class="container">
+            <h2 class="section-title">Our Objectives</h2>
+            <p class="section-subtitle">Building Champions, On and Off the Field</p>
+
+            <div class="objectives-grid">
+                <div class="objective-card">
+                    <div class="objective-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Physical Fitness</h3>
+                    <p>Promote healthy lifestyles and physical well-being among students</p>
+                </div>
+                <div class="objective-card">
+                    <div class="objective-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Teamwork & Leadership</h3>
+                    <p>Encourage collaboration and develop leadership skills through sports</p>
+                </div>
+                <div class="objective-card">
+                    <div class="objective-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Sportsmanship</h3>
+                    <p>Build character, integrity, and respect for opponents and teammates</p>
+                </div>
+                <div class="objective-card">
+                    <div class="objective-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Unity</h3>
+                    <p>Foster unity and strengthen bonds among students across all houses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Physical Education Board -->
+    <section id="staff" class="staff-section">
+        <div class="container">
+            <h2 class="section-title">Physical Education Board</h2>
+            <div class="staff-grid">
+                <!-- Director 1 -->
+                <div class="staff-card-styled">
+                    <div class="staff-header">
+                        <img src="images/dominic.jpeg" alt="Mr. A. Dominic" class="staff-photo">
+                        <h3>Mr. A. Dominic</h3>
+                    </div>
+                    <div class="staff-info">
+                        <p class="staff-role">Director of Physical Education</p>
+                        <a href="tel:9787953512" class="phone-link-pill">
+                            <i class="fas fa-phone-alt"></i> 9787953512
+                        </a>
+                        <a href="mailto:sports@mkce.ac.in" class="email-link-pill">
+                            <i class="fas fa-envelope"></i> sports@mkce.ac.in
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Director 2 -->
+                <div class="staff-card-styled">
+                    <div class="staff-header">
+                        <img src="images/kamaraj.jpeg" alt="Mr. P. Kamaraj" class="staff-photo">
+                        <h3>Mr. P. Kamaraj</h3>
+                    </div>
+                    <div class="staff-info">
+                        <p class="staff-role">Director of Physical Education</p>
+                        <a href="tel:9791615580" class="phone-link-pill">
+                            <i class="fas fa-phone-alt"></i> 9791615580
+                        </a>
+                        <a href="mailto:sports@mkce.ac.in" class="email-link-pill">
+                            <i class="fas fa-envelope"></i> sports@mkce.ac.in
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Trainer -->
+                <div class="staff-card-styled">
+                    <div class="staff-header">
+                        <img src="images/kalpana.jpeg" alt="Ms. S. Kalpana" class="staff-photo">
+                        <h3>Ms. S. Kalpana</h3>
+                    </div>
+                    <div class="staff-info">
+                        <p class="staff-role">Physical Education Trainer</p>
+                        <a href="tel:8072880465" class="phone-link-pill">
+                            <i class="fas fa-phone-alt"></i> 8072880465
+                        </a>
+                        <a href="mailto:sports@mkce.ac.in" class="email-link-pill">
+                            <i class="fas fa-envelope"></i> sports@mkce.ac.in
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Representatives -->
+            <h3 class="section-title" style="margin-top: 50px; font-size: 2rem;">Student Representatives</h3>
+            <div class="leaders-grid">
+                <!-- Boys Column -->
+                <div class="leaders-column">
+                    <h3 class="gender-title"><i class="fas fa-male"></i> Boys</h3>
+
+                    <!-- Sports Secretary -->
+                    <div class="staff-card-styled" style="margin-bottom: 25px; height: auto; min-height: 0;">
+                        <div class="staff-header" style="margin-bottom: 10px;">
+                            <img src="images/vishwapriyan.PNG" alt="Vishva Priyan K" class="staff-photo"
+                                style="width: 60px; height: 60px;">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 5px;">Vishva Priyan K (IV–MECH)</h3>
+                        </div>
+                        <div class="staff-info" style="margin-top: 0;">
+                            <p class="staff-role"
+                                style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold; color: var(--primary-color);">
+                                Sports Secretary</p>
+                            <a href="tel:6369028735" class="phone-link-pill"
+                                style="padding: 8px 20px; font-size: 0.85rem; width: auto; min-width: 180px;">
+                                <i class="fas fa-phone-alt"></i> 6369028735
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Joint Secretary -->
+                    <div class="staff-card-styled" style="height: auto; min-height: 0;">
+                        <div class="staff-header" style="margin-bottom: 10px;">
+                            <img src="images/saaidarun.jpg" alt="Saaidarun S" class="staff-photo"
+                                style="width: 60px; height: 60px;">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 5px;">Saaidarun S (III–CSE)</h3>
+                        </div>
+                        <div class="staff-info" style="margin-top: 0;">
+                            <p class="staff-role"
+                                style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold; color: var(--primary-color);">
+                                Joint Secretary</p>
+                            <a href="tel:6380547180" class="phone-link-pill"
+                                style="padding: 8px 20px; font-size: 0.85rem; width: auto; min-width: 180px;">
+                                <i class="fas fa-phone-alt"></i> 6380547180
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Girls Column -->
+                <div class="leaders-column">
+                    <h3 class="gender-title"><i class="fas fa-female"></i> Girls</h3>
+
+                    <!-- Sports Secretary -->
+                    <div class="staff-card-styled" style="margin-bottom: 25px; height: auto; min-height: 0;">
+                        <div class="staff-header" style="margin-bottom: 10px;">
+                            <img src="images/harini.jpeg" alt="Harini S" class="staff-photo"
+                                style="width: 60px; height: 60px;">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 5px;">Harini S (IV–AIML)</h3>
+                        </div>
+                        <div class="staff-info" style="margin-top: 0;">
+                            <p class="staff-role"
+                                style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold; color: var(--primary-color);">
+                                Sports Secretary</p>
+                            <a href="tel:9361741668" class="phone-link-pill"
+                                style="padding: 8px 20px; font-size: 0.85rem; width: auto; min-width: 180px;">
+                                <i class="fas fa-phone-alt"></i> 9361741668
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Joint Secretary -->
+                    <div class="staff-card-styled" style="height: auto; min-height: 0;">
+                        <div class="staff-header" style="margin-bottom: 10px;">
+                            <img src="images/Rakshavikashini K.jpeg" alt="Rakshavikashini K" class="staff-photo"
+                                style="width: 60px; height: 60px;">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 5px;">Rakshavikashini K (III–EEE)</h3>
+                        </div>
+                        <div class="staff-info" style="margin-top: 0;">
+                            <p class="staff-role"
+                                style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold; color: var(--primary-color);">
+                                Joint Secretary</p>
+                            <a href="tel:9345794259" class="phone-link-pill"
+                                style="padding: 8px 20px; font-size: 0.85rem; width: auto; min-width: 180px;">
+                                <i class="fas fa-phone-alt"></i> 9345794259
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Photo Gallery</h2>
+            <p class="section-subtitle">Capturing the Spirit of Kreeda'26</p>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Dynamically Populated via JS -->
+            </div>
+
+            <div id="gallery-loader" class="gallery-loader" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i> Loading...
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image">
+            <div class="lightbox-caption"></div>
+        </div>
+        <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>M.Kumarasamy College of Engineering<span class="admin-trigger" id="adminTrigger">.</span></h3>
+                    <p>Organized by Sports Committee</p>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/_mkce.sports_/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 M.Kumarasamy College of Engineering. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Event Details Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <span class="modal-icon" id="modalIcon">🏆</span>
+                <h2 class="modal-title" id="modalTitle">Event Name</h2>
+            </div>
+            <div class="modal-body">
+                <!-- Gender Toggle inside Modal -->
+                <div class="modal-gender-toggle" id="modalGenderToggle">
+                    <button class="modal-gender-btn active" data-gender="boys">
+                        <i class="fas fa-male"></i> Boys
+                    </button>
+                    <button class="modal-gender-btn" data-gender="girls">
+                        <i class="fas fa-female"></i> Girls
+                    </button>
+                </div>
+
+                <!-- Boys Panel -->
+                <div class="modal-gender-panel active" id="modalBoysPanel">
+                    <div class="modal-info">
+                        <div class="info-row">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="modalBoysDate">TBD</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fas fa-clock"></i>
+                            <span id="modalBoysTime">TBD</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="modalBoysVenue">TBD</span>
+                        </div>
+                    </div>
+                    <div class="modal-fixtures" id="modalBoysFixtures"></div>
+                    <div class="modal-results" id="modalBoysResults"></div>
+                </div>
+
+                <!-- Girls Panel -->
+                <div class="modal-gender-panel" id="modalGirlsPanel">
+                    <div class="modal-info">
+                        <div class="info-row">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="modalGirlsDate">TBD</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fas fa-clock"></i>
+                            <span id="modalGirlsTime">TBD</span>
+                        </div>
+                        <div class="info-row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="modalGirlsVenue">TBD</span>
+                        </div>
+                    </div>
+                    <div class="modal-fixtures" id="modalGirlsFixtures"></div>
+                    <div class="modal-results" id="modalGirlsResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content admin-login-content">
+            <button class="modal-close" id="adminLoginClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Admin Login</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
+                Please login with your authorized email and password.
+            </p>
+            <input type="email" id="adminPassword" placeholder="Enter Admin Email" class="admin-input"
+                value="kreedamkce@gmail.com">
+            <input type="password" id="adminRealPassword" placeholder="Enter Admin Password" class="admin-input"
+                style="margin-top: 10px;">
+            <button id="adminLoginBtn" class="cta-button" style="width: 100%; margin-top: 15px;">Login</button>
+            <p id="adminError" class="error-msg" style="display: none; margin-top: 10px;"></p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <!-- Admin Dashboard Modal -->
+    <div id="adminDashboardModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content admin-dashboard-content">
+            <button class="modal-close" id="adminDashboardClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <h3 class="modal-title">Admin Dashboard</h3>
+                <div class="admin-tabs">
+                    <button class="active admin-tab" data-tab="boys">Boys</button>
+                    <button class="admin-tab" data-tab="girls">Girls</button>
+                    <button class="admin-tab" data-tab="gallery">Gallery</button>
+                    <button id="adminResetBtn" class="admin-tab"
+                        style="background-color: #ff4444; color: white; margin-left: 10px;">Reset Data</button>
+                    <button id="adminLogoutBtn" class="admin-tab"
+                        style="background-color: #333; color: white; margin-left: 10px; border: 1px solid #555;">Logout</button>
+                </div>
+            </div>
+            <div class="modal-body admin-body">
+                <div class="admin-sidebar" id="adminEventList">
+                    <!-- List of events will be populated here -->
+                </div>
+                <div class="admin-main">
+                    <!-- Gallery Manager (Initially Hidden) -->
+                    <div id="adminGalleryManager" style="display: none;">
+                        <h4>Gallery Manager</h4>
+                        <div class="form-group">
+                            <label>Upload New Photo:</label>
+                            <select id="adminGalleryEventSelect" class="admin-input" style="margin-bottom: 10px;">
+                                <option value="">-- General / No Specific Event --</option>
+                                <!-- Populated by JS -->
+                            </select>
+                            <input type="file" id="adminGalleryUpload" accept="image/*" class="admin-input">
+                            <button id="uploadPhotoBtn" class="cta-button" style="margin-top: 10px;">Upload</button>
+                            <button id="deleteAllPhotosBtn" class="delete-btn"
+                                style="margin-top: 10px; margin-left: 10px;">Delete All</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Photos:</label>
+                            <div id="adminGalleryList" class="admin-gallery-list">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="adminEditForm" style="display: none;">
+                        <h4 id="editEventTitle">Edit Event</h4>
+                        <div class="form-group">
+                            <label>Schedule:</label>
+                            <input type="text" id="editDate" placeholder="Date (e.g., March 12, 2026)"
+                                class="admin-input">
+                            <input type="text" id="editTime" placeholder="Time (e.g., 9:00 AM)" class="admin-input">
+                            <input type="text" id="editVenue" placeholder="Venue" class="admin-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Results (Winner):</label>
+                            <input type="text" id="editWinnerHouse" placeholder="Winner House (e.g., Red Rangers)"
+                                class="admin-input">
+                            <input type="text" id="editWinnerScore" placeholder="Score/Time (e.g., 21-15)"
+                                class="admin-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Results (Runner-up):</label>
+                            <input type="text" id="editRunnerHouse" placeholder="Runner House" class="admin-input">
+                            <input type="text" id="editRunnerScore" placeholder="Score/Time" class="admin-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Results (3rd Place):</label>
+                            <input type="text" id="editThirdHouse" placeholder="Third House" class="admin-input">
+                            <input type="text" id="editThirdScore" placeholder="Score/Time" class="admin-input">
+                        </div>
+
+                        <!-- Dynamic Fixtures Section -->
+                        <div class="form-group">
+                            <label>Fixtures (For Team Events):</label>
+                            <div id="editFixturesContainer"></div>
+                            <button id="addFixtureBtn" class="small-btn">+ Add Match</button>
+                        </div>
+
+                        <div class="admin-actions">
+                            <button id="saveEventBtn" class="cta-button">Save Event</button>
+                            <button id="deleteEventBtn" class="delete-btn">Delete Event</button>
+                        </div>
+                    </div>
+                    <div id="adminWelcomeMsg">
+                        <p>Select an event from the left to edit details.</p>
+                        <button id="addNewEventBtn" class="cta-button" style="margin-top: 20px;">+ Create New
+                            Event</button>
+
+                        <div
+                            style="margin-top: 30px; padding: 15px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;">
+                            <h4 style="margin-bottom: 10px; color: #28a745;"><i class="fas fa-globe"></i> Publish to
+                                GitHub</h4>
+                            <p style="font-size: 0.85em; margin-bottom: 15px; color: #ccc;">To make your changes visible
+                                to everyone, download the data file and commit it to your repository.</p>
+                            <button id="downloadDataBtn" class="cta-button"
+                                style="background: #28a745; width: 100%; font-size: 0.9em;">
+                                <i class="fas fa-file-download"></i> Download Data File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        style="text-align: center; padding: 20px 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-muted, rgba(255,255,255,0.5)); font-size: 0.9rem;">
+        <p style="margin: 0;">Developed by <strong style="color: var(--primary-color, #ff6b35);">Saaidarun S</strong>
+        </p>
+    </footer>
+
+    <!-- Firebase SDKs (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
+
+    <!-- Legacy Data (Fallback) -->
+    <script src="data.js"></script>
+
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

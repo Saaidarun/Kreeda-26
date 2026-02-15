@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Toggle Test</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .toggle-button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .toggle-button.active {
+            background: orange;
+            color: white;
+        }
+
+        .house-card {
+            border: 2px solid #333;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .letter {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px;
+            border: 2px solid orange;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Toggle Test</h1>
+
+    <div>
+        <button class="toggle-button active" data-category="boys" onclick="switchCategory('boys')">Boys</button>
+        <button class="toggle-button" data-category="girls" onclick="switchCategory('girls')">Girls</button>
+    </div>
+
+    <div class="house-card" data-house="red">
+        <h3>Red House</h3>
+        <div class="letters-container" id="red-letters"></div>
+    </div>
+
+    <div class="house-card" data-house="green">
+        <h3>Green House</h3>
+        <div class="letters-container" id="green-letters"></div>
+    </div>
+
+    <script>
+        const houseLetters = {
+            boys: {
+                red: ['F', 'C', 'D', 'P', 'L', 'U', 'V', 'Y'],
+                green: ['A', 'B', 'H', 'M']
+            },
+            girls: {
+                red: ['N', 'S'],
+                green: ['C', 'H', 'K', 'L', 'O', 'P', 'U', 'Y']
+            }
+        };
+
+        function switchCategory(category) {
+            console.log('Switching to:', category);
+
+            // Update button states
+            document.querySelectorAll('.toggle-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+
+            // Update letters
+            ['red', 'green'].forEach(house => {
+                const container = document.getElementById(`${house}-letters`);
+                container.innerHTML = '';
+                houseLetters[category][house].forEach(letter => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.textContent = letter;
+                    container.appendChild(span);
+                });
+            });
+        }
+
+        // Initialize with boys
+        switchCategory('boys');
+    </script>
+</body>
+
+</html>
