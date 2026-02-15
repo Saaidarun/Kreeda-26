@@ -118,28 +118,20 @@ tabButtons.forEach(button => {
 // ========================================
 // Dark/Light Theme Toggle
 // ========================================
+// ========================================
+// Dark/Light Theme Toggle (PERMANENT DARK MODE ENFORCED)
+// ========================================
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'dark') {
-    body.classList.add('dark-theme');
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+// Enforce Dark Theme
+body.classList.add('dark-theme');
+localStorage.setItem('theme', 'dark');
+
+// Hide Toggle Button (Since it's permanent)
+if (themeToggle) {
+    themeToggle.style.display = 'none';
 }
-
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-theme');
-
-    // Update icon
-    if (body.classList.contains('dark-theme')) {
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        localStorage.setItem('theme', 'light');
-    }
-});
 
 // ========================================
 // Scroll Reveal Animation
