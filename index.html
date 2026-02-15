@@ -1073,20 +1073,24 @@
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="modal">
         <div class="modal-overlay"></div>
-        <div class="modal-content admin-modal-content">
+        <div class="modal-content admin-login-content">
             <button class="modal-close" id="adminLoginClose">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="modal-header">
-                <h3 class="modal-title">Admin Login</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" style="text-align: center;">
-                    <input type="password" id="adminPassword" placeholder="Enter Admin Password" class="admin-input">
-                    <button id="adminLoginBtn" class="cta-button" style="margin-top: 20px;">Login</button>
-                    <p id="adminError" class="error-msg" style="color: red; display: none; margin-top: 10px;">Incorrect
-                        Password!</p>
-                </div>
+            <h3>Admin Login</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
+                Please login with your authorized email and password.
+            </p>
+            <input type="email" id="adminPassword" placeholder="Enter Admin Email" class="admin-input">
+            <input type="password" id="adminRealPassword" placeholder="Enter Admin Password" class="admin-input"
+                style="margin-top: 10px;">
+            <button id="adminLoginBtn" class="cta-button" style="width: 100%; margin-top: 15px;">Login</button>
+            <p id="adminError" class="error-msg" style="display: none; margin-top: 10px;"></p>
+
+            <div
+                style="margin-top: 20px; font-size: 0.8rem; color: #888; border-top: 1px solid #eee; padding-top: 10px;">
+                <p>New Admin? Create a user in <a href="https://console.firebase.google.com/" target="_blank">Firebase
+                        Console</a> > Authentication > Users.</p>
             </div>
         </div>
     </div>
