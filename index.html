@@ -956,32 +956,7 @@
         </div>
     </section>
 
-    <!-- Photo Gallery Section -->
-    <section id="gallery" class="gallery-section">
-        <div class="container">
-            <h2 class="section-title">Photo Gallery</h2>
-            <p class="section-subtitle">Capturing the Spirit of Kreeda'26</p>
 
-            <div class="gallery-grid" id="gallery-grid">
-                <!-- Dynamically Populated via JS -->
-            </div>
-
-            <div id="gallery-loader" class="gallery-loader" style="display: none;">
-                <i class="fas fa-spinner fa-spin"></i> Loading...
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Lightbox -->
-    <div id="lightbox" class="lightbox">
-        <button class="lightbox-close">&times;</button>
-        <button class="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
-        <div class="lightbox-content">
-            <img src="" alt="" class="lightbox-image">
-            <div class="lightbox-caption"></div>
-        </div>
-        <button class="lightbox-next"><i class="fas fa-chevron-right"></i></button>
-    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -1103,7 +1078,6 @@
                 <div class="admin-tabs">
                     <button class="active admin-tab" data-tab="boys">Boys</button>
                     <button class="admin-tab" data-tab="girls">Girls</button>
-                    <button class="admin-tab" data-tab="gallery">Gallery</button>
                     <button id="adminResetBtn" class="admin-tab"
                         style="background-color: #ff4444; color: white; margin-left: 10px;">Reset Data</button>
                     <button id="adminLogoutBtn" class="admin-tab"
@@ -1115,27 +1089,7 @@
                     <!-- List of events will be populated here -->
                 </div>
                 <div class="admin-main">
-                    <!-- Gallery Manager (Initially Hidden) -->
-                    <div id="adminGalleryManager" style="display: none;">
-                        <h4>Gallery Manager</h4>
-                        <div class="form-group">
-                            <label>Upload New Photo:</label>
-                            <select id="adminGalleryEventSelect" class="admin-input" style="margin-bottom: 10px;">
-                                <option value="">-- General / No Specific Event --</option>
-                                <!-- Populated by JS -->
-                            </select>
-                            <input type="file" id="adminGalleryUpload" accept="image/*" class="admin-input">
-                            <button id="uploadPhotoBtn" class="cta-button" style="margin-top: 10px;">Upload</button>
-                            <button id="deleteAllPhotosBtn" class="delete-btn"
-                                style="margin-top: 10px; margin-left: 10px;">Delete All</button>
-                        </div>
-                        <div class="form-group">
-                            <label>Current Photos:</label>
-                            <div id="adminGalleryList" class="admin-gallery-list">
-                                <!-- Populated via JS -->
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div id="adminEditForm" style="display: none;">
                         <h4 id="editEventTitle">Edit Event</h4>
