@@ -2205,15 +2205,29 @@ function initAdminGallery() {
 
             uploadTask.on('state_changed',
                 (snapshot) => {
-                    // Progress function (optional)
+                    // Progress function
                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
                     uploadBtn.textContent = `Uploading ${Math.round(progress)}%...`;
                 },
                 (error) => {
-                    // Error function
+                    // Handle unsuccessful uploads
                     console.error("Upload failed:", error);
-                    alert("Upload failed: " + error.message);
+                    // A full list of error codes is available at
+                    // https://firebase.google.com/docs/storage/web/handle-errors
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            alert("Upload Failed: User doesn't have permission to access the object");
+                            break;
+                        case 'storage/canceled':
+                            alert("Upload Failed: User canceled the upload");
+                            break;
+                        case 'storage/unknown':
+                            alert("Upload Failed: Unknown error occurred, inspect error.serverResponse");
+                            break;
+                        default:
+                            alert("Upload Failed: " + error.message);
+                    }
                     uploadBtn.textContent = 'Upload';
                 },
                 () => {
