@@ -1318,7 +1318,7 @@ function initAdminMode() {
         }
 
         // FORCE LOGIN EVERY TIME (Persistence.NONE)
-        auth.setPersistence(firebase.auth.Auth.Persistence.NONE)
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(() => {
                 return auth.signInWithEmailAndPassword(email, pass);
             })
