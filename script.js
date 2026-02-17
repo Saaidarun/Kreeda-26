@@ -738,7 +738,7 @@ function loadSavedResults() {
         } else {
             console.log("No data found in Firebase. Creating default...");
             // First run migration if needed
-            migrateDataToFirebase();
+            // migrateDataToFirebase(); // DISABLED to prevent overwriting existing data due to potential cache/sync timing issues
         }
     }, (error) => {
         console.error("Error getting data:", error);
@@ -2003,7 +2003,7 @@ function saveEventData() {
 // Initialize Gallery and Data when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Load Data (Local or Public)
-    if (typeof loadSavedResults === 'function') loadSavedResults();
+    // if (typeof loadSavedResults === 'function') loadSavedResults(); // Already called in older listener or initSportsDay, avoiding double listener
 
     // 3. Initialize Admin Mode
     if (typeof initAdminMode === 'function') initAdminMode();
