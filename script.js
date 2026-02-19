@@ -713,6 +713,9 @@ const eventDetails = {
 // ========================================
 // Load Saved Results from Firestore (Real-time)
 // ========================================
+// Global flag to prevent saves before data is loaded from Firebase
+let firebaseDataLoaded = false;
+
 function loadSavedResults() {
     // Check if Firebase is available
     if (typeof db === 'undefined') {
@@ -728,17 +731,23 @@ function loadSavedResults() {
 
             // Merge Events
             if (savedData.events) {
-                mergeData(savedData.events);
+                try {
+                    mergeData(savedData.events);
+                } catch (e) {
+                    console.error("Error merging data from Firebase:", e);
+                }
             }
             // Gallery handling removed (using external Google Photos link)
+
+            // Mark data as loaded so saves are safe
+            firebaseDataLoaded = true;
 
             // Re-calculate points and render
             calculatePoints();
             renderPublicEvents(); // Ensure this is defined
         } else {
             console.log("No data found in Firebase. Creating default...");
-            // First run migration if needed
-            // migrateDataToFirebase(); // DISABLED to prevent overwriting existing data due to potential cache/sync timing issues
+            firebaseDataLoaded = true; // No data to load, safe to save
         }
     }, (error) => {
         console.error("Error getting data:", error);
@@ -749,9 +758,23 @@ function loadSavedResults() {
         Object.keys(sourceData).forEach(eventName => {
             if (eventDetails[eventName]) {
                 const savedEvent = sourceData[eventName];
-                // Deep merge logic
-                if (savedEvent.boys) Object.assign(eventDetails[eventName].boys, savedEvent.boys);
-                if (savedEvent.girls) Object.assign(eventDetails[eventName].girls, savedEvent.girls);
+                // Deep merge logic - with safety checks for missing gender keys
+                if (savedEvent.boys) {
+                    if (eventDetails[eventName].boys) {
+                        Object.assign(eventDetails[eventName].boys, savedEvent.boys);
+                    } else {
+                        // Gender key doesn't exist in template - create it from saved data
+                        eventDetails[eventName].boys = savedEvent.boys;
+                    }
+                }
+                if (savedEvent.girls) {
+                    if (eventDetails[eventName].girls) {
+                        Object.assign(eventDetails[eventName].girls, savedEvent.girls);
+                    } else {
+                        // Gender key doesn't exist in template - create it from saved data
+                        eventDetails[eventName].girls = savedEvent.girls;
+                    }
+                }
                 if (savedEvent.results) eventDetails[eventName].results = savedEvent.results;
                 // Event props
                 ['date', 'time', 'venue', 'fixtures', 'type', 'eventType'].forEach(prop => {
@@ -1544,23 +1567,27 @@ function initAdminMode() {
                 target = eventDetails[currentEventName][currentCategory];
             }
 
-            // Merge
+            // Merge into local object
             Object.assign(target, updatedInfo);
 
-            // Merge
-            Object.assign(target, updatedInfo);
-
-            // Persist to Firebase
+            // Persist to Firebase - only write the changed event, not all events
             if (!auth.currentUser) {
                 alert("You must be logged in to save changes!");
                 return;
             }
 
-            db.collection("sportsDay").doc("data").set({
-                events: eventDetails
-            }, { merge: true })
+            if (!firebaseDataLoaded) {
+                alert("Data is still loading from the server. Please wait a moment and try again.");
+                return;
+            }
+
+            // Use update with dot-notation to only write the specific event
+            const updatePath = `events.${currentEventName}`;
+            db.collection("sportsDay").doc("data").update({
+                [updatePath]: eventDetails[currentEventName]
+            })
                 .then(() => {
-                    console.log("Data saved to Firestore");
+                    console.log("Data saved to Firestore (single event)");
                     alert('Event Saved Successfully!');
                     // Recalculate leaderboard
                     calculatePoints();
@@ -1601,22 +1628,20 @@ function initAdminMode() {
                     return;
                 }
 
-                db.collection("sportsDay").doc("data").set({
-                    events: eventDetails
-                }, { merge: true })
+                // Use dot-notation to only write the new event
+                const newEventPath = `events.${newName}`;
+                db.collection("sportsDay").doc("data").update({
+                    [newEventPath]: eventDetails[newName]
+                })
                     .then(() => {
                         renderEventList(currentCategory);
-                        // Critical Fix: Update Public View immediately (if needed locally, though listener handles it)
                         if (typeof renderPublicEvents === 'function') renderPublicEvents();
                         alert(`Event "${newName}" created successfully!`);
+                    })
+                    .catch((error) => {
+                        console.error("Error creating event:", error);
+                        alert("Error creating event: " + error.message);
                     });
-
-                // Critical Fix: Update Public View immediately
-                if (typeof renderPublicEvents === 'function') {
-                    renderPublicEvents();
-                }
-
-                alert(`Event "${newName}" created successfully!`);
             } else if (eventDetails[newName]) {
                 alert('Event already exists!');
             }
@@ -1631,15 +1656,19 @@ function initAdminMode() {
 
                 if (!auth.currentUser) return;
 
-                // For delete, we might need to set the whole object or use update with deleteField if we knew the path.
-                // Since we store all events in one 'events' map, we set the whole map again.
-                db.collection("sportsDay").doc("data").set({
-                    events: eventDetails
-                }, { merge: true }) // merge true is fine as we are replacing the 'events' key effectively with modified object
+                // Use FieldValue.delete() to remove just this event key from the events map
+                const deletePath = `events.${currentEventName}`;
+                db.collection("sportsDay").doc("data").update({
+                    [deletePath]: firebase.firestore.FieldValue.delete()
+                })
                     .then(() => {
                         renderEventList(currentCategory);
                         adminEditForm.style.display = 'none';
                         adminWelcomeMsg.style.display = 'block';
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting event:", error);
+                        alert("Error deleting event: " + error.message);
                     });
             }
         });
@@ -1981,6 +2010,11 @@ document.addEventListener('DOMContentLoaded', initSportsDay);
 function saveEventData() {
     if (!auth.currentUser) {
         alert("You must be logged in to save changes!");
+        return;
+    }
+
+    if (!firebaseDataLoaded) {
+        alert("Data is still loading from the server. Please wait a moment and try again.");
         return;
     }
 
