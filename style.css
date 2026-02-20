@@ -287,6 +287,7 @@ body {
     text-align: center;
     color: white;
     animation: fadeInUp 1s ease;
+    padding-top: 80px;
 }
 
 .college-name {
@@ -377,6 +378,137 @@ body {
     font-size: 1.5rem;
 }
 
+/* ========================================
+   Countdown Timer
+   ======================================== */
+.countdown-container {
+    margin: 30px 0;
+    animation: fadeInUp 1.2s ease;
+}
+
+.countdown-title {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.countdown-title i {
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.countdown-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.countdown-box {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    padding: 15px 20px;
+    min-width: 85px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.countdown-box:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.countdown-value {
+    display: block;
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(to bottom, #ffffff, #ffd700);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.countdown-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.countdown-separator {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffd700;
+    animation: blink 1s infinite;
+    line-height: 1;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.countdown-ended {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    animation: pulse 1.5s infinite;
+}
+
+@media (max-width: 768px) {
+    .countdown-box {
+        min-width: 65px;
+        padding: 12px 10px;
+    }
+
+    .countdown-value {
+        font-size: 1.8rem;
+    }
+
+    .countdown-label {
+        font-size: 0.65rem;
+    }
+
+    .countdown-separator {
+        font-size: 1.5rem;
+    }
+
+    .countdown-title {
+        font-size: 0.9rem;
+    }
+}
+
 .cta-button {
     display: inline-block;
     padding: 15px 40px;
@@ -393,6 +525,250 @@ body {
 .cta-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   Event Day Schedule Section
+   ======================================== */
+.schedule-section {
+    padding: var(--section-padding);
+    background: linear-gradient(135deg, var(--bg-color) 0%, rgba(255, 107, 53, 0.05) 100%);
+}
+
+.schedule-day-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.schedule-day-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.schedule-day-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 10px 0 5px 0;
+}
+
+.schedule-day-date {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.schedule-day-date i {
+    margin-right: 5px;
+}
+
+.time-end {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.5;
+    margin-top: 3px;
+}
+
+.schedule-timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Vertical Line */
+.schedule-timeline::before {
+    content: '';
+    position: absolute;
+    left: 140px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color), var(--primary-color));
+    border-radius: 3px;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    margin-bottom: 0;
+    padding: 20px 0;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.schedule-item:hover {
+    transform: translateX(5px);
+}
+
+.schedule-time {
+    min-width: 120px;
+    text-align: right;
+    padding-top: 5px;
+}
+
+.time-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.schedule-dot {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    margin-top: 8px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 0 4px var(--bg-color), 0 0 0 6px var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.schedule-item:hover .schedule-dot {
+    transform: scale(1.3);
+}
+
+.schedule-content {
+    flex: 1;
+    background: var(--card-bg);
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow);
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.schedule-item:hover .schedule-content {
+    box-shadow: 0 8px 25px var(--shadow);
+    transform: translateY(-2px);
+}
+
+.schedule-content h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.schedule-content p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.75;
+    margin-bottom: 8px;
+}
+
+.schedule-venue {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Highlighted Items (Opening & Closing) */
+.schedule-highlight .schedule-content {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(255, 215, 0, 0.1));
+    border-left-color: #ffd700;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-left: 4px solid #ffd700;
+}
+
+.schedule-highlight .schedule-dot {
+    background: #ffd700;
+    box-shadow: 0 0 0 4px var(--bg-color), 0 0 0 6px #ffd700;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+}
+
+.schedule-highlight .time-value {
+    color: #ffd700;
+    font-size: 1.1rem;
+}
+
+/* Lunch Break */
+.schedule-break .schedule-content {
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+    border-left-color: #28a745;
+    border-style: dashed;
+    border-left-style: solid;
+}
+
+.schedule-break .schedule-dot {
+    background: #28a745;
+    box-shadow: 0 0 0 4px var(--bg-color), 0 0 0 6px #28a745;
+}
+
+/* Note at bottom */
+.schedule-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.schedule-note i {
+    color: var(--primary-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .schedule-timeline::before {
+        left: 20px;
+    }
+
+    .schedule-item {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-left: 0;
+    }
+
+    .schedule-time {
+        min-width: auto;
+        text-align: left;
+        padding-left: 45px;
+    }
+
+    .schedule-dot {
+        position: absolute;
+        left: 13px;
+        top: 25px;
+    }
+
+    .schedule-content {
+        margin-left: 45px;
+        padding: 15px 18px;
+    }
+
+    .schedule-content h3 {
+        font-size: 1rem;
+    }
+
+    .schedule-note {
+        font-size: 0.75rem;
+        flex-direction: column;
+        padding: 0 15px;
+    }
 }
 
 /* ========================================
